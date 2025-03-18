@@ -1,0 +1,6 @@
+{
+  "name": "My Function",
+  "runtime": "node-18.0",
+  "entrypoint": "index.js",
+  "commands": ["npm install"]
+}
