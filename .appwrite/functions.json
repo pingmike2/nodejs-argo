@@ -1,9 +1,0 @@
-{
-  "name": "Starte",
-  "runtime": "node-18.0",
-  "entrypoint": "index.js",
-  "commands": [
-    "apt-get update && apt-get install -y curl", 
-    "npm install"
-  ]
-}
