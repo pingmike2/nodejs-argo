@@ -158,22 +158,12 @@ async function extractDomains() {
   }
   if (!argoDomain) return console.log("⚠️ 未获取到 Argo 域名");
 
-  let metaInfo;
-  try {
-    metaInfo = execSync(
-      'curl -s https://speed.cloudflare.com/meta | awk -F\\" \'{print $26"-"$18}\' | sed -e \'s/ /_/g\'',
-      { encoding: 'utf-8' }
-    ).trim();
-    if (!metaInfo) throw new Error();
-  } catch {
-    metaInfo = 'default-ISP';
-  }
 
-  const VMESS = { v: '2', ps: `${NAME}-${metaInfo}`, add: CFIP, port: CFPORT, id: UUID, aid: '0', scy: 'none', net: 'ws', type: 'none', host: argoDomain, path: '/vmess-argo?ed=2560', tls: 'tls', sni: argoDomain };
+  const VMESS = { v: '2', ps: `${NAME}`, add: CFIP, port: CFPORT, id: UUID, aid: '0', scy: 'none', net: 'ws', type: 'none', host: argoDomain, path: '/vmess-argo?ed=2560', tls: 'tls', sni: argoDomain };
   const subTxt = `
-vless://${UUID}@${CFIP}:${CFPORT}?encryption=none&security=tls&sni=${argoDomain}&type=ws&host=${argoDomain}&path=%2Fvless-argo%3Fed%3D2560#${NAME}-${metaInfo}
+vless://${UUID}@${CFIP}:${CFPORT}?encryption=none&security=tls&sni=${argoDomain}&type=ws&host=${argoDomain}&path=%2Fvless-argo%3Fed%3D2560#${NAME}
 vmess://${Buffer.from(JSON.stringify(VMESS)).toString('base64')}
-trojan://${UUID}@${CFIP}:${CFPORT}?security=tls&sni=${argoDomain}&type=ws&host=${argoDomain}&path=%2Ftrojan-argo%3Fed%3D2560#${NAME}-${metaInfo}`;
+trojan://${UUID}@${CFIP}:${CFPORT}?security=tls&sni=${argoDomain}&type=ws&host=${argoDomain}&path=%2Ftrojan-argo%3Fed%3D2560#${NAME}`;
 
   lastSubTxt = subTxt;
   fs.writeFileSync(subPath, Buffer.from(subTxt).toString('base64'));
