@@ -552,7 +552,6 @@ function cleanFiles() {
       exec(`rm -rf ${filesToDelete.join(' ')} >/dev/null 2>&1`, (error) => {
         console.clear();
         console.log('App is running');
-        console.log('Thank you for using this script, enjoy!');
       });
     }
   }, 90000);
